@@ -1,0 +1,19 @@
+Built-up two-C upright, L = 44.0 in, pinned warping-free ends, 3 in welds at 18 in spacing
+
+Global modes (rigid in-plane cross section, warping free):
+  global: L = 44.0 in, welds at [4.0, 22.0, 40.0], 43788 dofs, 15665 constrained; A = 1.4684 in², σ_ref = 681.02 psi (uniform check: mean σ_z = 632.12)
+  mode 1: P_cr =   160613.0 lbf =   160.61 kips, σ_cr =   109.38 ksi;  rigid-section participation 1.000;  mid-length U = -0.004 V = +1.000 θ·r_max/|U,V| = 0.74
+  mode 2: P_cr =   413336.8 lbf =   413.34 kips, σ_cr =   281.49 ksi;  rigid-section participation 1.000;  mid-length U = -0.002 V = -1.000 θ·r_max/|U,V| = 0.31
+  mode 3: P_cr =   606555.1 lbf =   606.56 kips, σ_cr =   413.08 ksi;  rigid-section participation 1.000;  mid-length U = +1.000 V = +0.062 θ·r_max/|U,V| = 0.05
+  mode 4: P_cr =   637595.7 lbf =   637.60 kips, σ_cr =   434.21 ksi;  rigid-section participation 1.000;  mid-length U = -1.000 V = -0.002 θ·r_max/|U,V| = 0.00
+
+All modes (unconstrained shell):
+  all: L = 44.0 in, welds at [4.0, 22.0, 40.0], 43788 dofs, 2813 constrained; A = 1.4684 in², σ_ref = 681.02 psi (uniform check: mean σ_z = 634.69)
+  mode 1: P_cr =   101261.5 lbf =   101.26 kips, σ_cr =    68.96 ksi;  rigid-section participation 0.013;  mid-length U = +0.399 V = +1.000 θ·r_max/|U,V| = 0.80
+  mode 2: P_cr =   106119.5 lbf =   106.12 kips, σ_cr =    72.27 ksi;  rigid-section participation 0.006;  mid-length U = -1.000 V = -0.097 θ·r_max/|U,V| = 0.10
+  mode 3: P_cr =   106267.7 lbf =   106.27 kips, σ_cr =    72.37 ksi;  rigid-section participation 0.009;  mid-length U = -1.000 V = +0.345 θ·r_max/|U,V| = 0.03
+  mode 4: P_cr =   106771.6 lbf =   106.77 kips, σ_cr =    72.71 ksi;  rigid-section participation 0.002;  mid-length U = +1.000 V = -0.003 θ·r_max/|U,V| = 0.04
+
+Composite section (rigidly joined): A = 1.4684 in², Ix = 2.3372 in⁴ (about horizontal axis), Iy = 5.1357 in⁴;  Euler P_ey = 351.5 kips (bending about x, deflection in y), P_ex = 772.4 kips
+
+Wrote buckling_results.csv, mode_global_1.csv, mode_global_2.csv, mode_all_1.csv

@@ -1,0 +1,13 @@
+J / (Σbt³/3) for L = 28 in, 56 elements along, Cs = 0.1.  |ΣF|/T is the net in-plane end reaction (0 for pure torsion).
+section                                            absolute penalty 1/100   Hughes–Brezzi γ = Gt
+flat 3 in strip, 8 elements across                  0.9692  (|ΣF|/T 5e-12)  0.9692  (|ΣF|/T 5e-12)
+two 1.5 in strips folded 5 deg                      0.9638  (|ΣF|/T 1e-02)  0.9692  (|ΣF|/T 1e-11)
+two 1.5 in strips folded 30 deg                     0.9439  (|ΣF|/T 9e-03)  0.9690  (|ΣF|/T 4e-11)
+two 1.5 in strips folded 90 deg                     0.9413  (|ΣF|/T 2e-03)  0.9664  (|ΣF|/T 3e-11)
+sharp 3x3 angle, 8 per leg                          0.9694  (|ΣF|/T 9e-04)  0.9820  (|ΣF|/T 5e-11)
+sharp-corner lipped C, 8 per flat                   1.3760  (|ΣF|/T 7e-02)  0.9821  (|ΣF|/T 2e-08)
+rounded lipped C, 4/flat 5/corner (Abaqus mesh)     2.1367  (|ΣF|/T 1e-01)  0.9870  (|ΣF|/T 8e-09)
+rounded lipped C, 8/flat 10/corner                  3.2807  (|ΣF|/T 2e-01)  0.9873  (|ΣF|/T 2e-08)
+rounded lipped C, 8/flat 20/corner                  4.8184  (|ΣF|/T 2e-01)  0.9873  (|ΣF|/T 1e-07)
+270 deg slit tube R = 0.199, 30 segments            0.3716  (|ΣF|/T 1e+00)  0.8844  (|ΣF|/T 1e-08)
+270 deg slit tube R = 1.5, 60 segments              1.0074  (|ΣF|/T 2e-01)  0.9873  (|ΣF|/T 2e-09)

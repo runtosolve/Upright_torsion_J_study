@@ -1,0 +1,64 @@
+Built-up member: two 3 × 3 × 0.074 lipped C, C2 offset by B = 3.0 in, 7 welds × 3.0 in at z = [1.5, 19.5, 37.5, 55.5, 73.5, 91.5, 109.5]
+References: 2 J_C = 2.6697e-03 in⁴;  Bredt closed cell J_box = 1.8538 in⁴;  arithmetic weld-weighted (calculate_J_r5.jl) = 0.3529 in⁴;  harmonic (series) = 3.2915e-03 in⁴
+Abaqus combo_1_J_r5 (calculate_J_r5.jl, S4R, welds + friction contact): J = 0.2929 in⁴
+
+Abaqus weld layout (7 × 3 in), welds only
+  welds = abaqus, contact = false: 109716 dofs, 926 rigid-tie constraints, 0 contact constraints
+  T = 7.847761e+02 lbf-in (z = 0: -7.847761e+02),  ΣFx = -2.78e-09, ΣFy = 1.80e-07 lbf  (|ΣF|/T = 2.3e-10)
+  β₁(L)/βo = 1.0000, β₂(L)/βo = 1.0000;  linear-fit R² of β₁(z) = 0.99921
+  J_eff = T L / (G βo) = 7.67750e-01 in⁴
+  (9.0 s)
+
+Abaqus weld layout + bilateral normal lip/web tie between welds
+  welds = abaqus, contact = true: 109716 dofs, 926 rigid-tie constraints, 348 contact constraints
+  T = 7.848211e+02 lbf-in (z = 0: -7.848211e+02),  ΣFx = 2.93e-09, ΣFy = 1.86e-07 lbf  (|ΣF|/T = 2.4e-10)
+  β₁(L)/βo = 1.0000, β₂(L)/βo = 1.0000;  linear-fit R² of β₁(z) = 0.99920
+  J_eff = T L / (G βo) = 7.67795e-01 in⁴
+  (2.5 s)
+
+Fully welded (37 back-to-back 3 in welds)
+  welds = full, contact = false: 109716 dofs, 4346 rigid-tie constraints, 0 contact constraints
+  T = 2.112306e+03 lbf-in (z = 0: -2.112306e+03),  ΣFx = -1.06e-08, ΣFy = 1.28e-07 lbf  (|ΣF|/T = 6.1e-11)
+  β₁(L)/βo = 1.0000, β₂(L)/βo = 1.0000;  linear-fit R² of β₁(z) = 1.00000
+  J_eff = T L / (G βo) = 2.06648e+00 in⁴
+  (2.6 s)
+
+No welds (two independent C)
+  welds = none, contact = false: 109716 dofs, 0 rigid-tie constraints, 0 contact constraints
+  T = 2.709960e+00 lbf-in (z = 0: -2.709959e+00),  ΣFx = -1.95e-08, ΣFy = 1.79e-07 lbf  (|ΣF|/T = 6.7e-08)
+  β₁(L)/βo = 1.0000, β₂(L)/βo = 1.0000;  linear-fit R² of β₁(z) = 1.00000
+  J_eff = T L / (G βo) = 2.65117e-03 in⁴
+  (1.9 s)
+
+Abaqus weld layout, twist applied about C1 shear center
+  welds = abaqus, contact = false: 109716 dofs, 926 rigid-tie constraints, 0 contact constraints
+  T = 7.847761e+02 lbf-in (z = 0: -7.847761e+02),  ΣFx = -1.78e-08, ΣFy = 3.72e-07 lbf  (|ΣF|/T = 4.8e-10)
+  β₁(L)/βo = 1.0000, β₂(L)/βo = 1.0000;  linear-fit R² of β₁(z) = 0.99921
+  J_eff = T L / (G βo) = 7.67750e-01 in⁴
+  (2.4 s)
+
+Abaqus weld layout, Cs = 0
+  welds = abaqus, contact = false: 109716 dofs, 926 rigid-tie constraints, 0 contact constraints
+  T = 7.853199e+02 lbf-in (z = 0: -7.853199e+02),  ΣFx = -1.22e-08, ΣFy = 1.30e-07 lbf  (|ΣF|/T = 1.7e-10)
+  β₁(L)/βo = 1.0000, β₂(L)/βo = 1.0000;  linear-fit R² of β₁(z) = 0.99921
+  J_eff = T L / (G βo) = 7.68282e-01 in⁴
+  (2.2 s)
+
+Abaqus weld layout, fine mesh (8/flat, 10/corner, 444 along)
+  welds = abaqus, contact = false: 432540 dofs, 3190 rigid-tie constraints, 0 contact constraints
+  T = 7.743996e+02 lbf-in (z = 0: -7.743996e+02),  ΣFx = -1.29e-07, ΣFy = 1.05e-07 lbf  (|ΣF|/T = 2.2e-10)
+  β₁(L)/βo = 1.0000, β₂(L)/βo = 1.0000;  linear-fit R² of β₁(z) = 0.99922
+  J_eff = T L / (G βo) = 7.57599e-01 in⁴
+  (10.3 s)
+
+Summary
+case                                                                         dofs    J_eff (in⁴)      J/J_box       |ΣF|/T
+Abaqus weld layout (7 × 3 in), welds only                                  109716    7.67750e-01       0.4142      2.3e-10
+Abaqus weld layout + bilateral normal lip/web tie between welds            109716    7.67795e-01       0.4142      2.4e-10
+Fully welded (37 back-to-back 3 in welds)                                  109716    2.06648e+00       1.1147      6.1e-11
+No welds (two independent C)                                               109716    2.65117e-03       0.0014      6.7e-08
+Abaqus weld layout, twist applied about C1 shear center                    109716    7.67750e-01       0.4142      4.8e-10
+Abaqus weld layout, Cs = 0                                                 109716    7.68282e-01       0.4144      1.7e-10
+Abaqus weld layout, fine mesh (8/flat, 10/corner, 444 along)               432540    7.57599e-01       0.4087      2.2e-10
+
+Wrote J_built_up_results.csv and twist_profile_built_up.csv
