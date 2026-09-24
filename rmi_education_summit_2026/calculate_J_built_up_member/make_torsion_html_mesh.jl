@@ -54,8 +54,8 @@ X1, Y1 = centerline(shape); sec_traces = String[]
 for s in 1:2
     xs0 = X1 .+ (s - 1) * B; ys0 = Y1
     rows = [argmin((xyz[:, 1] .- xs0[i]) .^ 2 .+ (xyz[:, 2] .- ys0[i]) .^ 2 .+ (xyz[:, 3] .- L / 2) .^ 2) for i in eachindex(xs0)]
-    push!(sec_traces, "{type:'scatter',x:[$(join(round.(xs0; digits = 4), ','))],y:[$(join(round.(ys0; digits = 4), ','))],mode:'lines',line:{color:'#8a8a8a',width:4},showlegend:false,hoverinfo:'skip',xaxis:'x',yaxis:'y'}")
-    push!(sec_traces, "{type:'scatter',x:[$(join(round.(xs0 .+ sc .* u[rows, 1]; digits = 4), ','))],y:[$(join(round.(ys0 .+ sc .* u[rows, 2]; digits = 4), ','))],mode:'lines',line:{color:'#2a78d6',width:4},showlegend:false,hoverinfo:'skip',xaxis:'x',yaxis:'y'}")
+    push!(sec_traces, "{type:'scatter',x:[$(join(round.(ys0; digits = 4), ','))],y:[$(join(round.(xs0; digits = 4), ','))],mode:'lines',line:{color:'#8a8a8a',width:4},showlegend:false,hoverinfo:'skip',xaxis:'x',yaxis:'y'}")
+    push!(sec_traces, "{type:'scatter',x:[$(join(round.(ys0 .+ sc .* u[rows, 2]; digits = 4), ','))],y:[$(join(round.(xs0 .+ sc .* u[rows, 1]; digits = 4), ','))],mode:'lines',line:{color:'#2a78d6',width:4},showlegend:false,hoverinfo:'skip',xaxis:'x',yaxis:'y'}")
 end
 js(v) = join((x === nothing ? "null" : string(round(x, digits = 3)) for x in v), ',')
 rx_ = maximum(def[:, 1]) - minimum(def[:, 1]); ry_ = maximum(def[:, 2]) - minimum(def[:, 2])
@@ -84,8 +84,8 @@ const layout = {
  scene:{domain:{x:[0,0.8],y:[0,1]},aspectmode:'manual',aspectratio:{x:$(ar[1]),y:$(ar[2]),z:$(ar[3])},xaxis:{title:{text:'Z (in)'},showbackground:false,showgrid:false,zeroline:false},yaxis:{visible:false},zaxis:{visible:false},
         camera:{projection:{type:'orthographic'},eye:{x:1.09,y:1.05,z:1.01},center:{x:0,y:0,z:0},up:{x:-0.399,y:-0.384,z:0.833}},dragmode:'orbit'},
  showlegend:false,
- xaxis:{domain:[0.83,0.99],title:{text:'X (in)'},scaleanchor:'y',scaleratio:1,zeroline:false},
- yaxis:{domain:[0.35,0.65],title:{text:'Y (in)'},zeroline:false},
+ xaxis:{domain:[0.85,0.99],title:{text:'X (in), downaisle'},scaleanchor:'y',scaleratio:1,zeroline:false},
+ yaxis:{domain:[0.2,0.8],title:{text:'Y (in), cross-aisle'},zeroline:false},
  margin:{l:30,r:20,t:80,b:30},autosize:true,paper_bgcolor:'#fff'};
 Plotly.newPlot('plot', data, layout, {responsive:true, displaylogo:false}).then(gd => {
   const show = c => { if(!c) return; const f = v => v.toFixed(2);
