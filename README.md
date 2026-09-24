@@ -10,6 +10,9 @@ welded pair under the end twist (7 × 3 in welds at 18 in, L = 111 in), showing 
 (z = 0: X and Y fixed, twist restrained, warping free) and the applied rigid twist at z = L (warping free).
 Rotate, zoom and pan in the browser; the bottom-left corner shows the live camera vectors.
 
+**Perforated upright:** https://runtosolve.github.io/Upright_torsion_J_study/perforated.html — the same twist test on the
+welded pair with the teardrop web holes and square flange holes (Gmsh mixed quad/tri mesh), J_eff = 0.572 in⁴ vs 0.737 gross.
+
 - `rmi_education_summit_2026/calculate_J_single_member/` — J of one C: static twist method vs. an exact 2D
   Saint-Venant solution; documents the drilling-dof finding that led to the Hughes–Brezzi option in
   QuadShellFiniteElement.jl / TriShellFiniteElement.jl.
