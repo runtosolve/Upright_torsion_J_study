@@ -114,36 +114,99 @@ Findings:
   A predictor built on (w_spacing / section depth) would track the model far better than one built on
   w_length / w_spacing.
 
-## Global flexural-torsional buckling, L = 44 in (`buckling_built_up.jl`, `plot_mode_wglmakie.jl`)
+## Perforated uprights (`perforated_J_study.jl`, `perforated_J_gmsh.jl`)
 
-Elastic eigenbuckling of the welded pair under uniform axial compression, both ends pinned and warping
-free (all end nodes fixed in X and Y, rotations and u_z free), 3 in welds at 18 in spacing placed
-symmetrically (centers z = 4, 22, 40 in). Reference load: self-equilibrated tributary end forces, 1 kip
-total. K φ = P_cr (−K_g) φ solved on the Ferrite-condensed dofs (Cᵀ K C) by shift-invert Arnoldi
-(ArnoldiMethod.jl, sparse LU). A rigid in-plane cross-section constraint at every station (shared u, v, θ
-for all nodes of both C's, warping free, weld ties kept for u_z/θx/θy) isolates the global modes; the
-unconstrained model gives the true lowest modes.
+The same static twist study with the upright's perforation pattern (14 ga strip layout drawing): teardrop holes
+(Ø0.719 in circle + Ø0.375 in lobe pointing along the member, ≈ 0.90 in long) in two rows 0.797 in from each
+web face (1.406 in apart) every 2.0 in; 0.562 × 0.562 in square holes (R0.02) centred 0.856 in from the web face on
+both flanges every 2.0 in, placed 1.0 in (half a pitch) from the teardrops along the member (assumed stagger; the
+drawing's 0.9215 / 1.517 in dimensions fix the true phase). Holes remove 3.9 % of the shell area.
 
-| analysis | mode | P_cr (kips) | σ_cr (ksi) | character |
-|---|---|---|---|---|
-| global (rigid section) | 1 | **160.6** | 109.4 | flexural-torsional: y-translation with twist, one half-wave |
-| global | 2 | 413.3 | 281.5 | second FT branch (translation and twist out of phase) |
-| global | 3 | 606.6 | 413.1 | FT, two half-waves |
-| global | 4 | 637.6 | 434.2 | pure flexure in x (perpendicular to the webs) |
-| unconstrained shell | 1 | 101.3 | 69.0 | local plate buckling of the 2.9 in flats (rigid-section participation 1 %) |
-| Euler, fully composite section | P_ey / P_ex | 351.5 / 772.4 | | bending about the horizontal / vertical axis |
+Two meshes:
 
-The built-up section is symmetric about its horizontal axis, so the shear center is offset horizontally
-and, per Timoshenko, the vertical translation couples with twist while the horizontal translation buckles
-as pure flexure — exactly the mode pattern found. The FT load (160.6 kips) is 46 % of the composite
-Euler load in the same direction because the twist about the offset shear center is resisted only by the
-intermittently welded pair (J_eff ≈ 0.77 in⁴) and its warping. Pure x-flexure at 637.6 kips is 17 % below
-the composite Euler value, the loss of composite action between welds. At 44 in the member is governed
-by local buckling (101 kips, 69 ksi), so the global FT load is well above the local one.
+- `perforated_J_study.jl`: structured extruded quad mesh (0.21 in around, 0.2 in along), holes as removed cells
+  whose centres lie inside the outlines (pixelated edges).
+- `perforated_J_gmsh.jl`: the developed strip is drawn in Gmsh (OCC) with the true hole outlines, fragmented by the
+  bend lines at every centerline vertex, meshed with recombination (h = 0.2 in; quads plus triangles at the hole
+  boundaries), folded onto the C, and assembled through Ferrite SubDofHandlers with QuadShellFiniteElement.jl for the
+  quads and TriShellFiniteElement.jl for the triangles (both Hughes–Brezzi drilling). `gmsh_strip_mesh.png` shows the
+  strip mesh. The unperforated Gmsh mesh reproduces the structured-mesh J (1.3287e-3 vs 1.3271e-3 in⁴).
 
-Mode shape: `mode_global_1_wglmakie.html` (interactive WGLMakie scene, standalone) and `mode_global_1.png`
-(CairoMakie), both from `plot_mode_wglmakie.jl`; mode data in `mode_global_1.csv`, `mode_global_2.csv`,
-`mode_all_1.csv`; loads in `buckling_results.csv`.
+| L = 111 in | no holes | perforated | ratio |
+|---|---|---|---|
+| single C, J, Gmsh mesh (44,947 quads + 3,172 tris) | 1.3287e-3 in⁴ | 1.2034e-3 in⁴ | 0.906 |
+| single C, J, structured mesh | 1.3271e-3 | 1.2146e-3 | 0.915 |
+| welded pair r5 (7 × 3 in welds at 18 in), J_eff, Gmsh mesh (89,894 quads + 6,344 tris) | 0.737 in⁴ | 0.572 in⁴ | 0.777 |
+| welded pair r5, J_eff, structured mesh | 0.753 | 0.592 | 0.785 |
+
+The two meshes agree within 1 % on the reduction. For one C the holes cut J by 9 to 10 %, about 2.4 times the
+removed area fraction: each hole adds free edges and disturbs the Saint-Venant shear flow over a zone longer than
+the hole (compare the free-edge loss of ≈ 0.63 t⁴/3 per edge from the single-member study). For the welded pair the
+loss is 22 %, larger because the closed-cell shear flow through the welds runs through the perforated webs and the
+flange squares sit in the load path between the welds and the C1 lips. Results in `perforated_J_results.csv` and
+`perforated_J_gmsh_results.csv`.
+
+## Global flexural-torsional buckling (`buckling_built_up.jl`, `ft_analytical_check.jl`, `make_mode_html.jl`)
+
+Elastic eigenbuckling of the welded pair under uniform axial compression, both ends pinned and warping free (all
+end nodes fixed in X and Y, rotations and u_z free), 3 in welds at 18 in spacing placed symmetrically about
+mid-length. Reference load: self-equilibrated tributary end forces, 1 kip total. K φ = P_cr (−K_g) φ solved on the
+Ferrite-condensed dofs (Cᵀ K C) by shift-invert Arnoldi (ArnoldiMethod.jl, sparse LU). Two models:
+
+- **unconstrained shell** — the true lowest modes, local plate buckling included;
+- **rigid-section (global) model** — every station's in-plane motion reduced to one (u, v, θ), warping free, weld
+  ties kept for u_z/θx/θy. It isolates the global modes where local modes come first (short members). Its K_g is
+  built from the uniform axial reference stress −P/A: the constrained prebuckling solve blocks Poisson expansion
+  and would otherwise carry a spurious transverse compression ν σ_z that destabilizes twist (an early version of
+  this study reported 160.6 kips for L = 44 in from that contaminated K_g; the corrected value is 298.9 kips).
+  The same constraint also suppresses transverse membrane strain, so the plates act with E/(1 − ν²): the model
+  overstates pure y-flexure by 3 % at L = 44 in (362.6 vs Euler 351.5 kips) and by ~10 % at L = 120 in (54.6 vs
+  47.3 kips). Its global loads are therefore upper bounds by roughly that margin.
+
+| L (in) | welds | analysis | mode | P_cr (kips) | character |
+|---|---|---|---|---|---|
+| 44 | 3 × 3 in at z = 4, 22, 40 | rigid-section | 1 | **298.9** | flexural-torsional: y-translation with twist (θ·r/v = 0.27) |
+| 44 | | rigid-section | 2 | 686.5 | pure flexure in x |
+| 44 | | rigid-section, pure torsion about the static shear center | | 778.4 | |
+| 44 | | rigid-section, pure y-flexure | | 362.6 | Euler 351.5 |
+| 44 | | unconstrained shell | 1 | 101.3 | local plate buckling of the 2.9 in flats |
+| 120 | 7 × 3 in at z = 6 … 114 | unconstrained shell | 1 | **49.2** | global: weak-axis (y) flexure with slight twist (θ·r/v = 0.07), the coupled FT root |
+| 120 | | rigid-section | 1 | 52.7 | same mode (E/(1 − ν²) artifact) |
+| 120 | | unconstrained shell | 2 | 103.0 | local |
+| 120 | | Euler, composite I_x | | 47.3 | |
+
+Analytical comparison (Timoshenko, section symmetric about the horizontal axis so bending about x couples with
+torsion: P_FT = [(P_ey + P_t) − √((P_ey + P_t)² − 4 β P_ey P_t)] / (2β), β = 1 − (x_o/r_o)²). The shear center
+by statics on the rigid-section model (zero twist under a mid-length transverse force, welds included) is at
+x = 0.39 in, x_o = −2.36 in from the composite centroid at x = 2.74 in (`section_centers.png`).
+
+| L (in) | Timoshenko with shell P_ey and shell P_t | Timoshenko with Euler P_ey, P_t = G J_eff / r_o² (J_eff = 0.77 in⁴, C_w = 0) | shell |
+|---|---|---|---|
+| 44 | 280.3 kips (0.94 × shell) | 277.4 kips (P_t = 819 kips) | 298.9 (rigid-section) |
+| 120 | 52.4 kips (0.99 × shell) | 45.8 kips (P_t = 798 kips) | 52.7 (rigid-section) / 49.2 (unconstrained) |
+
+The shell's pure-torsional buckling load about the static shear center (778 kips at 44 in, 736 at 120 in) corresponds
+to a torsional stiffness P_t r_o² of 8,280 and 8,030 kip-in², i.e. 92 to 95 % of G J_eff = 8,712 kip-in² with no
+additional warping contribution: for buckling of the welded pair the static-twist J_eff is the right torsional
+constant and the effective C_w is negligible. With a colleague's beam properties for this section (A = 1.219 in²,
+r_x = 1.297 in, J = 0.319 in⁴ by the Tlumak equation, C_w = 4.358 in⁶, r_o = 3.272 in, x_o as above) the formula
+gives P_cre = 202 kips at L = 44 in (P_t = 399 kips, stiffness 4,270 kip-in²), 68 % of the shell value; the
+difference is the torsion constant, 0.319 vs 0.77 in⁴. At 120 in the buckling is flexure-dominated and every
+approach lands within ±10 %.
+
+Validation of the rigid-section buckling analysis on a single C (`single_c_buckling_check.jl`,
+`single_c_Cw_check.jl`, `single_c_energy_check.jl`), where J, C_w = 2.385 in⁶ (cutwp, reproduced exactly by an
+independent sectorial-coordinate calculation) and the shear center are known: pure torsion about the shear center
+36.3 vs 34.0 kips theory at 44 in (1.07) and 6.17 vs 5.76 at 120 in (1.07); pure y-flexure 169.8 vs 175.7 (0.97);
+pure x-flexure 145.3 vs 137.7 (1.06); mesh-independent. An energy decomposition of the torsional mode gives the
+geometric term at 1.000 × P r_o² ∫θ′² and the elastic term at 1.07 (44 in) / 1.02 (400 in) × (G J ∫θ′² + E C_w ∫θ″²),
+so the only bias is the E/(1 − ν²) stiffening of the rigid-section constraint. A static warping-fixed twist of the
+shell gives C_w = 2.35 in⁶ with free sections (2.56 with rigid sections).
+
+Pages: `mode_global_1_plotly.html` (L = 44 in, rigid-section mode) and `mode_all_1_L120_plotly.html` (L = 120 in,
+unconstrained mode), generated by `make_mode_html.jl <mode csv> <results csv> <global|all>`; WGLMakie/CairoMakie
+versions from `plot_mode_wglmakie.jl`. Results in `buckling_results.csv`, `buckling_results_L120.csv`,
+`ft_analytical_check.csv`, `ft_analytical_check_L120.csv`.
 
 ## Files
 
@@ -156,3 +219,6 @@ Mode shape: `mode_global_1_wglmakie.html` (interactive WGLMakie scene, standalon
 | `make_figure_spacing_comparison.jl` | `weld_spacing_comparison.png`: Ferrite J_eff vs. the Tlumak equation vs. weld spacing, 3 in welds |
 | `buckling_built_up.jl` | eigenbuckling at L = 44 in (global rigid-section and unconstrained); writes `buckling_results.csv`, `mode_*.csv`, `buckling_log.txt` |
 | `plot_mode_wglmakie.jl` | 3D mode shape: `mode_global_1_wglmakie.html` (WGLMakie) and `mode_global_1.png` |
+| `ft_analytical_check.jl` | Timoshenko FT formula vs. the shell: constrained pure-torsion / pure-flexure eigen loads, static shear center; writes `ft_analytical_check.csv` (`_L120` for 120 in) |
+| `perforated_J_study.jl`, `perforated_J_gmsh.jl` | perforated single C and welded pair J (structured mesh with removed cells; Gmsh mixed quad/tri mesh with true hole outlines, TriShell + QuadShell assembly); `gmsh_strip_mesh.png` |
+| `single_c_buckling_check.jl`, `single_c_Cw_check.jl`, `single_c_energy_check.jl` | validation of the rigid-section buckling machinery on a single C against classical P_t, Euler, C_w and an energy decomposition |

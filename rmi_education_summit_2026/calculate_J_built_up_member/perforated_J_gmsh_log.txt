@@ -1,0 +1,19 @@
+┌ Warning: no entities added to the set with name: tri
+└ @ Ferrite ~/.julia/packages/Ferrite/e5O5M/src/Grid/utils.jl:4
+┌ Warning: no entities added to the set with name: tri
+└ @ Ferrite ~/.julia/packages/Ferrite/e5O5M/src/Grid/utils.jl:4
+single C, no holes
+  single C, no holes (Gmsh h = 0.20): 40080 quads + 0 tris, 244254 dofs, 0 weld ties; T = 1.3582e+00 lbf-in, |ΣF|/T = 1.4e-08; J = 1.3287e-03 in⁴
+  (18 s)
+single C, perforated
+  single C, perforated (Gmsh h = 0.20): 44947 quads + 3172 tris, 295512 dofs, 0 weld ties; T = 1.2301e+00 lbf-in, |ΣF|/T = 1.5e-08; J = 1.2034e-03 in⁴
+  (9 s)
+welded pair r5, no holes
+  welded pair, no holes (Gmsh h = 0.20): 80160 quads + 0 tris, 488508 dofs, 1666 weld ties; T = 7.5311e+02 lbf-in, |ΣF|/T = 1.3e-11; J = 7.3677e-01 in⁴
+  (13 s)
+welded pair r5, perforated
+  welded pair, perforated (Gmsh h = 0.20): 89894 quads + 6344 tris, 591024 dofs, 1666 weld ties; T = 5.8499e+02 lbf-in, |ΣF|/T = 2.2e-11; J = 5.7230e-01 in⁴
+  (16 s)
+
+Single C:     J = 1.3287e-03 (no holes) → 1.2034e-03 (perforated), ratio 0.906   [structured quad mesh: 1.3271e-3 → 1.2146e-3, 0.915; exact gross 1.3349e-3]
+Welded pair:  J_eff = 0.7368 (no holes) → 0.5723 (perforated), ratio 0.777   [structured quad mesh: 0.7531 → 0.5915, 0.785]

@@ -5,8 +5,12 @@
 using DelimitedFiles, Statistics, Printf
 
 path = length(ARGS) >= 1 ? ARGS[1] : joinpath(@__DIR__, "mode_global_1.csv")
-res = readdlm(joinpath(@__DIR__, "buckling_results.csv"), ','; skipstart = 1)
-P = Float64(res[1, 4])
+respath = length(ARGS) >= 2 ? ARGS[2] : joinpath(@__DIR__, "buckling_results.csv")
+res = readdlm(respath, ','; skipstart = 1)
+analysis = length(ARGS) >= 3 ? ARGS[3] : "global"          # which row of buckling_results*.csv gives P_cre: "global" or "all"
+row = findfirst(i -> strip(String(res[i, 1])) == analysis && Int(res[i, 2]) == 1, 1:size(res, 1))
+P = Float64(res[row, 4])
+modelnote = analysis == "all" ? "unconstrained shell" : "rigid-section (global) shell model"
 weld_length = 3.0; weld_spacing = 18.0; B = 3.0; D = 3.0 - 0.074; R = 0.199; scale_frac = 0.035
 
 d = readdlm(path, ','; skipstart = 1)
@@ -87,7 +91,7 @@ const data = [
  $(join(sec_traces, ",\n "))
 ];
 const layout = {
- title:{text:'Global flexural-torsional buckling mode, two-C welded upright, L = $(Int(L)) in, pinned warping-free, 3 in welds at 18 in:  P<sub>cre</sub> = $(round(P, digits = 1)) kips',x:0.02,xanchor:'left',font:{size:15}},
+ title:{text:'Global flexural-torsional buckling mode, two-C welded upright, L = $(Int(L)) in, pinned warping-free, 3 in welds at 18 in:  P<sub>cre</sub> = $(round(P, digits = 1)) kips ($(modelnote))',x:0.02,xanchor:'left',font:{size:15}},
  scene:{domain:{x:[0,0.58],y:[0,1]},aspectmode:'manual',aspectratio:{x:$(ar[1]),y:$(ar[2]),z:$(ar[3])},xaxis:{visible:false},yaxis:{visible:false},zaxis:{visible:false},
         camera:{projection:{type:'orthographic'},eye:{x:-2.0,y:-2.4,z:0.75},center:{x:0,y:0,z:0},up:{x:0,y:0,z:1}},dragmode:'orbit'},
  xaxis:{domain:[0.62,0.98],title:{text:'X (in)'},scaleanchor:'y',scaleratio:1,zeroline:false},

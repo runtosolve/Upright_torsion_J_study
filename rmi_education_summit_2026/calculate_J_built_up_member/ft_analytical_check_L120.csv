@@ -1,0 +1,16 @@
+quantity,value,unit
+P_FT_shell,52.73324651503554,kips
+P_t_shell,735.9920204348678,kips
+P_ey_shell,54.552241438939696,kips
+P_ey_Euler,47.25617420789199,kips
+P_ex_shell,110.22442502153112,kips
+P_ex_Euler,103.83842620965386,kips
+x_o,-2.413466761657771,in
+r_o,3.3036358022450862,in
+beta,0.46629863184364484,
+P_FT_Timoshenko_shell_inputs,52.40787302364057,kips
+P_t_from_GJeff_Cw0,798.2013312340854,kips
+torsional_stiffness_shell_Pt_ro2,8032.623913162623,kip-in^2
+P_FT_Timoshenko_GJeff_Cw0,45.77024518881741,kips
+Cw_eff_implied,-33.579981202354126,in^6
+J_eff,0.7678,in^4

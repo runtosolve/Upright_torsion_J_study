@@ -16,6 +16,9 @@ Rotate, zoom and pan in the browser; the bottom-left corner shows the live camer
 - `rmi_education_summit_2026/calculate_J_built_up_member/` — effective J of the welded pair (J_eff = 0.768 in⁴
   for the r5 layout), weld spacing study vs. the Tlumak equation, eigenbuckling scripts, and the page generators
   (`make_torsion_html.jl`, `torsion_deformed_shape.jl`).
+- `rmi_education_summit_2026/calculate_J_built_up_member/perforated_J_*.jl` — the same J study with the upright's
+  teardrop/square perforation pattern: structured mesh with removed cells, and a Gmsh mixed quad/tri mesh with the true
+  hole outlines assembled with QuadShellFiniteElement + TriShellFiniteElement (single C −9 %, welded pair −22 %).
 - `docs/` — GitHub Pages site (`index.html` = torsion page) and summary figures.
 
 The companion flexural-torsional buckling study is hosted at https://runtosolve.github.io/UprightLTB/

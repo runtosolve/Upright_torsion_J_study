@@ -1,0 +1,21 @@
+Built-up two-C upright, L = 120.0 in, pinned warping-free ends, 3 in welds at 18 in spacing
+
+Global modes (rigid in-plane cross section, warping free):
+  global: L = 120.0 in, welds at [6.0, 24.0, 42.0, 60.0, 78.0, 96.0, 114.0], 118572 dofs, 41945 constrained; A = 1.4684 in², σ_ref = 681.02 psi (uniform check: mean σ_z = 639.09)
+  prebuckling membrane stress: mean σ_z = -639.1 psi, mean transverse σ_s = -191.7 psi (ν σ_z would be -191.7), mean τ = -0.0 psi
+  mode 1: P_cr =    52733.2 lbf =    52.73 kips, σ_cr =    35.91 ksi;  rigid-section participation 1.000;  mid-length U = -0.000 V = +1.000 θ·r_max/|U,V| = 0.05
+  mode 2: P_cr =   110224.0 lbf =   110.22 kips, σ_cr =    75.06 ksi;  rigid-section participation 1.000;  mid-length U = -1.000 V = -0.000 θ·r_max/|U,V| = 0.00
+  mode 3: P_cr =   181977.7 lbf =   181.98 kips, σ_cr =   123.93 ksi;  rigid-section participation 1.000;  mid-length U = +1.000 V = +0.000 θ·r_max/|U,V| = 0.80
+  mode 4: P_cr =   327349.1 lbf =   327.35 kips, σ_cr =   222.93 ksi;  rigid-section participation 1.000;  mid-length U = -0.003 V = +1.000 θ·r_max/|U,V| = 0.44
+
+All modes (unconstrained shell):
+  all: L = 120.0 in, welds at [6.0, 24.0, 42.0, 60.0, 78.0, 96.0, 114.0], 118572 dofs, 6125 constrained; A = 1.4684 in², σ_ref = 681.02 psi (uniform check: mean σ_z = 643.07)
+  prebuckling membrane stress: mean σ_z = -643.1 psi, mean transverse σ_s = -2.0 psi (ν σ_z would be -192.9), mean τ = -0.0 psi
+  mode 1: P_cr =    49178.1 lbf =    49.18 kips, σ_cr =    33.49 ksi;  rigid-section participation 1.000;  mid-length U = -0.000 V = +1.000 θ·r_max/|U,V| = 0.07
+  mode 2: P_cr =   102953.2 lbf =   102.95 kips, σ_cr =    70.11 ksi;  rigid-section participation 0.055;  mid-length U = +1.000 V = -0.037 θ·r_max/|U,V| = 0.06
+  mode 3: P_cr =   104018.1 lbf =   104.02 kips, σ_cr =    70.84 ksi;  rigid-section participation 0.013;  mid-length U = +1.000 V = +0.401 θ·r_max/|U,V| = 0.55
+  mode 4: P_cr =   105981.5 lbf =   105.98 kips, σ_cr =    72.18 ksi;  rigid-section participation 1.000;  mid-length U = -1.000 V = -0.000 θ·r_max/|U,V| = 0.00
+
+Composite section (rigidly joined): A = 1.4684 in², Ix = 2.3372 in⁴ (about horizontal axis), Iy = 5.1357 in⁴;  Euler P_ey = 47.3 kips (bending about x, deflection in y), P_ex = 103.8 kips
+
+Wrote buckling_results_L120.csv, mode_global_1_L120.csv, mode_global_2_L120.csv, mode_all_1_L120.csv
