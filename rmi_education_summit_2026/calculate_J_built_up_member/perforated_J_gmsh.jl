@@ -167,9 +167,12 @@ function twist_J_gmsh(; nshapes = 1, perforated = true, L = shape.length, mesh_s
     add!(ch, Dirichlet(:u, endL, (x, t) -> [-βo * (x[2] - Yc), βo * (x[1] - Xc)], [1, 2]))
     n_ties = 0
     if nshapes == 2
+        claimed = falses(length(P))                                              # abutting welds: a node belongs to the first weld
         for zw in weld_locations, (yw) in (D, 0.0)
-            slaves = [i for i in eachindex(P) if abs(P[i][3] - zw) <= weld_length / 2 + 1e-9 && P[i][3] > 1e-6 && P[i][3] < L - 1e-6 &&
+            slaves = [i for i in eachindex(P) if !claimed[i] && abs(P[i][3] - zw) <= weld_length / 2 + 1e-9 && P[i][3] > 1e-6 && P[i][3] < L - 1e-6 &&
                       near(part(i)[2], yw, R) && ((shapeof(i) == 1 && near(part(i)[1], B, R)) || (shapeof(i) == 2 && near(part(i)[1], 0.0, R)))]
+            isempty(slaves) && continue
+            claimed[slaves] .= true
             add_rigid_tie!(ch, nd, grid, slaves[1], slaves); n_ties += length(slaves) - 1
         end
     end

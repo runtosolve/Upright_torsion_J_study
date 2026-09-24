@@ -1,0 +1,46 @@
+┌ Warning: no entities added to the set with name: tri
+└ @ Ferrite ~/.julia/packages/Ferrite/e5O5M/src/Grid/utils.jl:4
+┌ Warning: no entities added to the set with name: tri
+└ @ Ferrite ~/.julia/packages/Ferrite/e5O5M/src/Grid/utils.jl:4
+┌ Warning: no entities added to the set with name: tri
+└ @ Ferrite ~/.julia/packages/Ferrite/e5O5M/src/Grid/utils.jl:4
+┌ Warning: no entities added to the set with name: tri
+└ @ Ferrite ~/.julia/packages/Ferrite/e5O5M/src/Grid/utils.jl:4
+┌ Warning: no entities added to the set with name: tri
+└ @ Ferrite ~/.julia/packages/Ferrite/e5O5M/src/Grid/utils.jl:4
+┌ Warning: no entities added to the set with name: tri
+└ @ Ferrite ~/.julia/packages/Ferrite/e5O5M/src/Grid/utils.jl:4
+┌ Warning: no entities added to the set with name: tri
+└ @ Ferrite ~/.julia/packages/Ferrite/e5O5M/src/Grid/utils.jl:4
+┌ Warning: no entities added to the set with name: tri
+└ @ Ferrite ~/.julia/packages/Ferrite/e5O5M/src/Grid/utils.jl:4
+┌ Warning: no entities added to the set with name: tri
+└ @ Ferrite ~/.julia/packages/Ferrite/e5O5M/src/Grid/utils.jl:4
+n =  2 welds, spacing 108.00 in
+  welded pair, no holes (Gmsh h = 0.20): 80160 quads + 0 tris, 488508 dofs, 476 weld ties; T = 3.1371e+01 lbf-in, |ΣF|/T = 5.6e-10; J = 3.0690e-02 in⁴
+  welded pair, perforated (Gmsh h = 0.20): 89894 quads + 6344 tris, 591024 dofs, 476 weld ties; T = 2.7704e+01 lbf-in, |ΣF|/T = 6.5e-10; J = 2.7103e-02 in⁴
+n =  3 welds, spacing 54.00 in
+  welded pair, no holes (Gmsh h = 0.20): 80160 quads + 0 tris, 488508 dofs, 714 weld ties; T = 1.1143e+02 lbf-in, |ΣF|/T = 1.2e-10; J = 1.0901e-01 in⁴
+  welded pair, perforated (Gmsh h = 0.20): 89894 quads + 6344 tris, 591024 dofs, 714 weld ties; T = 9.6764e+01 lbf-in, |ΣF|/T = 2.6e-10; J = 9.4665e-02 in⁴
+n =  4 welds, spacing 36.00 in
+  welded pair, no holes (Gmsh h = 0.20): 80160 quads + 0 tris, 488508 dofs, 952 weld ties; T = 2.3436e+02 lbf-in, |ΣF|/T = 3.3e-11; J = 2.2927e-01 in⁴
+  welded pair, perforated (Gmsh h = 0.20): 89894 quads + 6344 tris, 591024 dofs, 952 weld ties; T = 1.9858e+02 lbf-in, |ΣF|/T = 8.5e-11; J = 1.9427e-01 in⁴
+n =  5 welds, spacing 27.00 in
+  welded pair, no holes (Gmsh h = 0.20): 80160 quads + 0 tris, 488508 dofs, 1190 weld ties; T = 3.9014e+02 lbf-in, |ΣF|/T = 2.0e-11; J = 3.8167e-01 in⁴
+  welded pair, perforated (Gmsh h = 0.20): 89894 quads + 6344 tris, 591024 dofs, 1190 weld ties; T = 3.2156e+02 lbf-in, |ΣF|/T = 6.3e-11; J = 3.1458e-01 in⁴
+n =  7 welds, spacing 18.00 in
+  welded pair, no holes (Gmsh h = 0.20): 80160 quads + 0 tris, 488508 dofs, 1666 weld ties; T = 7.5311e+02 lbf-in, |ΣF|/T = 1.3e-11; J = 7.3677e-01 in⁴
+  welded pair, perforated (Gmsh h = 0.20): 89894 quads + 6344 tris, 591024 dofs, 1666 weld ties; T = 5.8499e+02 lbf-in, |ΣF|/T = 2.2e-11; J = 5.7230e-01 in⁴
+n = 10 welds, spacing 12.00 in
+  welded pair, no holes (Gmsh h = 0.20): 80160 quads + 0 tris, 488508 dofs, 2380 weld ties; T = 1.2527e+03 lbf-in, |ΣF|/T = 5.1e-12; J = 1.2255e+00 in⁴
+  welded pair, perforated (Gmsh h = 0.20): 89894 quads + 6344 tris, 591024 dofs, 2380 weld ties; T = 9.0126e+02 lbf-in, |ΣF|/T = 1.6e-11; J = 8.8171e-01 in⁴
+n = 13 welds, spacing 9.00 in
+  welded pair, no holes (Gmsh h = 0.20): 80160 quads + 0 tris, 488508 dofs, 3094 weld ties; T = 1.5920e+03 lbf-in, |ΣF|/T = 5.8e-12; J = 1.5575e+00 in⁴
+  welded pair, perforated (Gmsh h = 0.20): 89894 quads + 6344 tris, 591024 dofs, 3094 weld ties; T = 1.0906e+03 lbf-in, |ΣF|/T = 3.9e-12; J = 1.0670e+00 in⁴
+n = 19 welds, spacing 6.00 in
+  welded pair, no holes (Gmsh h = 0.20): 80160 quads + 0 tris, 488508 dofs, 4522 weld ties; T = 1.9178e+03 lbf-in, |ΣF|/T = 3.8e-12; J = 1.8762e+00 in⁴
+  welded pair, perforated (Gmsh h = 0.20): 89894 quads + 6344 tris, 591024 dofs, 4522 weld ties; T = 1.2579e+03 lbf-in, |ΣF|/T = 8.3e-12; J = 1.2306e+00 in⁴
+n = 37 welds, spacing 3.00 in
+  welded pair, no holes (Gmsh h = 0.20): 80160 quads + 0 tris, 488508 dofs, 8806 weld ties; T = 2.1117e+03 lbf-in, |ΣF|/T = 1.3e-11; J = 2.0659e+00 in⁴
+  welded pair, perforated (Gmsh h = 0.20): 89894 quads + 6344 tris, 591024 dofs, 8806 weld ties; T = 1.3722e+03 lbf-in, |ΣF|/T = 8.7e-12; J = 1.3424e+00 in⁴
+Wrote perforated_weld_spacing_results.csv

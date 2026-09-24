@@ -139,6 +139,19 @@ Two meshes:
 | welded pair r5 (7 × 3 in welds at 18 in), J_eff, Gmsh mesh (89,894 quads + 6,344 tris) | 0.737 in⁴ | 0.572 in⁴ | 0.777 |
 | welded pair r5, J_eff, structured mesh | 0.753 | 0.592 | 0.785 |
 
+Weld spacing sweep with perforations (`perforated_weld_spacing_study.jl`, Gmsh mesh, 3 in welds, L = 111 in;
+`weld_spacing_comparison_perforated.png`, `perforated_weld_spacing_results.csv`):
+
+| w_spacing (in) | 108 | 54 | 36 | 27 | 18 | 12 | 9 | 6 | 3 (continuous) |
+|---|---|---|---|---|---|---|---|---|---|
+| J_eff gross (in⁴) | 0.031 | 0.109 | 0.229 | 0.382 | 0.737 | 1.226 | 1.557 | 1.876 | 2.066 |
+| J_eff perforated (in⁴) | 0.027 | 0.095 | 0.194 | 0.315 | 0.572 | 0.882 | 1.067 | 1.231 | 1.342 |
+| perforated / gross | 0.88 | 0.87 | 0.85 | 0.82 | 0.78 | 0.72 | 0.69 | 0.66 | 0.65 |
+
+The hole penalty grows as the welds get closer: 12 % at 108 in spacing, 22 % at the r5 spacing of 18 in, and 35 % for
+the continuous weld, where the perforated closed cell keeps only 0.65 of the gross J_tube-type stiffness because the
+teardrops interrupt the web shear flow of the cell.
+
 The two meshes agree within 1 % on the reduction. For one C the holes cut J by 9 to 10 %, about 2.4 times the
 removed area fraction: each hole adds free edges and disturbs the Saint-Venant shear flow over a zone longer than
 the hole (compare the free-edge loss of ≈ 0.63 t⁴/3 per edge from the single-member study). For the welded pair the
@@ -220,5 +233,7 @@ versions from `plot_mode_wglmakie.jl`. Results in `buckling_results.csv`, `buckl
 | `buckling_built_up.jl` | eigenbuckling at L = 44 in (global rigid-section and unconstrained); writes `buckling_results.csv`, `mode_*.csv`, `buckling_log.txt` |
 | `plot_mode_wglmakie.jl` | 3D mode shape: `mode_global_1_wglmakie.html` (WGLMakie) and `mode_global_1.png` |
 | `ft_analytical_check.jl` | Timoshenko FT formula vs. the shell: constrained pure-torsion / pure-flexure eigen loads, static shear center; writes `ft_analytical_check.csv` (`_L120` for 120 in) |
+| `perforated_weld_spacing_study.jl`, `make_figure_spacing_perforated.jl` | weld spacing sweep with and without perforations (Gmsh mesh); `weld_spacing_comparison_perforated.png` |
+| `torsion_deformed_shape_perforated.jl`, `make_torsion_html_mesh.jl` | interactive page of the perforated pair twist from the Gmsh mesh (`torsion_perforated_plotly.html`) |
 | `perforated_J_study.jl`, `perforated_J_gmsh.jl` | perforated single C and welded pair J (structured mesh with removed cells; Gmsh mixed quad/tri mesh with true hole outlines, TriShell + QuadShell assembly); `gmsh_strip_mesh.png` |
 | `single_c_buckling_check.jl`, `single_c_Cw_check.jl`, `single_c_energy_check.jl` | validation of the rigid-section buckling machinery on a single C against classical P_t, Euler, C_w and an energy decomposition |
