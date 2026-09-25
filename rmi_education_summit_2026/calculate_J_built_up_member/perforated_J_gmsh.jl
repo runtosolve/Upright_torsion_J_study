@@ -45,7 +45,7 @@ function centerline_param(; n_flat = 4, n_corner = 4)
 end
 
 # ---- Gmsh mesh of the developed strip [0, S] × [0, L] with holes and fold lines; returns a 2D Ferrite grid (s, z)
-function strip_mesh(L; perforated = true, mesh_size = 0.2, n_flat = 4, n_corner = 4)
+function strip_mesh(L; perforated = true, mesh_size = 0.2, n_flat = 4, n_corner = 4, zlines = Float64[])
     X, Y, s, fold, s_of = centerline_param(; n_flat, n_corner)
     S = s[end]; t = shape.t; Ymax = maximum(Y)
     gmsh.initialize(); gmsh.option.setNumber("General.Terminal", 0)
@@ -72,10 +72,17 @@ function strip_mesh(L; perforated = true, mesh_size = 0.2, n_flat = 4, n_corner 
     if !isempty(holes)
         surf, _ = occ.cut([(2, rect)], [(2, h) for h in holes])
     end
-    # fold lines at every interior centerline vertex
+    # fold lines at every interior centerline vertex, plus optional cross lines at z ∈ zlines (brace stations) so that
+    # mesh nodes exist exactly there
     lines = [(1, occ.addLine(occ.addPoint(s[k], 0.0, 0.0), occ.addPoint(s[k], L, 0.0))) for k in 2:length(s)-1]
+    append!(lines, [(1, occ.addLine(occ.addPoint(0.0, zb, 0.0), occ.addPoint(S, zb, 0.0))) for zb in zlines])
     frag, _ = occ.fragment(surf, lines)
     occ.synchronize()
+    if !isempty(zlines)                                         # drop the pieces of the cross lines that fall inside holes
+        keep = Set(abs(tg) for (d, tg) in gmsh.model.getBoundary(gmsh.model.getEntities(2), false, false, false))
+        dangling = [(1, tg) for (d, tg) in gmsh.model.getEntities(1) if !(tg in keep)]
+        isempty(dangling) || (occ.remove(dangling, false); occ.synchronize())
+    end
     gmsh.option.setNumber("Mesh.MeshSizeMax", mesh_size); gmsh.option.setNumber("Mesh.MeshSizeMin", mesh_size / 3)
     gmsh.option.setNumber("Mesh.Algorithm", 6)                 # Frontal-Delaunay
     gmsh.option.setNumber("Mesh.RecombineAll", 1); gmsh.option.setNumber("Mesh.RecombinationAlgorithm", 1)
